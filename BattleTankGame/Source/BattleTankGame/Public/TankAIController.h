@@ -15,6 +15,7 @@ UCLASS()
 class BATTLETANKGAME_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
+	
 public:
 	ATank* GetAITank() const;
 

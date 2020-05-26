@@ -5,6 +5,15 @@
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if(GetPlayerTank())
+	{
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+	}
+}
+
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -22,7 +31,7 @@ void ATankAIController::BeginPlay()
 }
 
 
-ATank* ATankAIController::GetAITank() const
+ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
 }

@@ -20,8 +20,4 @@ private:
 	void Tick(float DeltaTime) override;
 	
 	void BeginPlay() override;
-	
-	ATank* GetControlledTank() const;
-
-	ATank* GetPlayerTank() const;
 };

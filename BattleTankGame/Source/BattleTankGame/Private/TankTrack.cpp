@@ -22,9 +22,7 @@ UTankTrack::UTankTrack()
 	static ConstructorHelpers::FObjectFinder<UPhysicalMaterial>PM_Track(TEXT("/Game/Tank/Track"));
 	UPhysicalMaterial* TrackMat = PM_Track.Object;
 	if (TrackMesh != nullptr && TrackMat != nullptr) {
-		UE_LOG(LogTemp, Warning, TEXT("Set track mesh %s"), *TrackMesh->GetName());
 		this->SetStaticMesh(TrackMesh);
-		UE_LOG(LogTemp, Warning, TEXT("Set track mesh %s"), *TrackMat->GetName());
 		this->SetPhysMaterialOverride(TrackMat);
 	}
 	else {

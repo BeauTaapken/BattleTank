@@ -10,7 +10,7 @@
 // Forward declerations
 class UTankBarrel;
 class UTankAimingComponent;
-class UTankTurret;
+class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -26,11 +26,14 @@ public:
 
 	void AimAt(FVector HitLocation);
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 	
 private:
 	// Sets default values for this pawn's properties
@@ -43,7 +46,7 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-		TSubclassOf<AProjectile> ProjectileBlueprint;
+	TSubclassOf<AProjectile> ProjectileBlueprint;
 	
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 4000;

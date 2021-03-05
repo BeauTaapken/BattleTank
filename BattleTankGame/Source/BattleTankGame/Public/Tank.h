@@ -7,8 +7,10 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+
 // Forward declerations
 class UTankBarrel;
+class UTankTurret;
 class UTankAimingComponent;
 class UTankMovementComponent;
 class AProjectile;

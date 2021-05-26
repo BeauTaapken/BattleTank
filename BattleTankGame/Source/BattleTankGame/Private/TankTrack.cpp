@@ -21,13 +21,9 @@ UTankTrack::UTankTrack()
 	UStaticMesh* TrackMesh = SM_Track.Object;
 	static ConstructorHelpers::FObjectFinder<UPhysicalMaterial>PM_Track(TEXT("/Game/Tank/Track"));
 	UPhysicalMaterial* TrackMat = PM_Track.Object;
-	if (TrackMesh != nullptr && TrackMat != nullptr) {
-		this->SetStaticMesh(TrackMesh);
-		this->SetPhysMaterialOverride(TrackMat);
-	}
-	else {
-		UE_LOG(LogTemp, Error, TEXT("Could not set static mesh to component"));
-	}
+	if (ensure(TrackMesh == nullptr || TrackMat == nullptr)) { return; }
+	this->SetStaticMesh(TrackMesh);
+	this->SetPhysMaterialOverride(TrackMat);
 #endif
 }
 

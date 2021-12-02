@@ -78,3 +78,21 @@ DerivedDataCache/*
 
 # Build folder
 build/*
+
+# .kdev4 folder
+.kdev4/*
+
+# Garbage files created when switching to linux
+BattleTankGame.code-workspace
+BattleTankGame.kdev4
+BattleTankGame.pro
+BattleTankGame.workspace
+BattleTankGameCodeCompletionFolders.txt
+BattleTankGameCodeLitePreProcessor.txt
+BattleTankGameConfig.pri
+BattleTankGameDefines.pri
+BattleTankGameHeader.pri
+BattleTankGameIncludes.pri
+BattleTankGameSource.pri
+CMakeLists.txt
+Makefile

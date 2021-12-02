@@ -6,7 +6,7 @@
 #include "ConstructorHelpers.h"
 #include "TankTurret.h"
 #include "TankBarrel.h"
-#include "projectile.h"
+#include "Projectile.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 

@@ -6,7 +6,7 @@
 #include "ConstructorHelpers.h"
 #include "TankTurret.h"
 #include "TankBarrel.h"
-#include "projectile.h"
+#include "Projectile.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -33,7 +33,11 @@ void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* Tur
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	if((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	if(RoundsLeft <= 0)
+	{
+		FiringState = EFiringState::OutOfAmmo;
+	}
+	else if((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
 		FiringState = EFiringState::Reloading;
 	}
@@ -45,6 +49,16 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	{
 		FiringState = EFiringState::Locked;
 	}
+}
+
+int UTankAimingComponent::GetRoundsLeft() const
+{
+	return RoundsLeft;
+}
+
+EFiringState UTankAimingComponent::GetFiringState() const
+{
+	return FiringState;
 }
 
 bool UTankAimingComponent::IsBarrelMoving()
@@ -90,12 +104,20 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 	Barrel->Elevate(DeltaRotator.Pitch);
 
-	Turret->Rotate(DeltaRotator.Yaw);
+	//Always rotate the shortest way
+	if(FMath::Abs(DeltaRotator.Yaw) < 180)
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
+	else
+	{
+		Turret->Rotate(-DeltaRotator.Yaw);
+	}
 }
 
 void UTankAimingComponent::Fire()
 {
-	if (FiringState != EFiringState::Reloading)
+	if (FiringState == EFiringState::Aiming || FiringState == EFiringState::Locked)
 	{
 		if (!ensure(Barrel && ProjectileBlueprint)) { return; }
 		// Spawn a projectile at the socket location of the barrel
@@ -106,5 +128,6 @@ void UTankAimingComponent::Fire()
 			);
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+		RoundsLeft--;
 	}
 }

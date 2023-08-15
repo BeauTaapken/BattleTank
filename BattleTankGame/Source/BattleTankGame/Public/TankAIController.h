@@ -21,7 +21,12 @@ protected:
 	float AcceptanceRadius = 8000;
 	
 private:
-	void Tick(float DeltaTime) override;
-	
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
+
+	virtual void SetPawn(APawn* InPawn) override;
+
+	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+	void OnPossessedTankDeath();
 };

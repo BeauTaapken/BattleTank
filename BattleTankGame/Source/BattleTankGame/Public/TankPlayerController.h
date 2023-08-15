@@ -31,9 +31,11 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000;
 
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
 
-	void Tick(float DeltaTime) override;
+	virtual void SetPawn(APawn* InPawn) override;
+
+	virtual void Tick(float DeltaTime) override;
 	
 	void AimTowardsCrosshair();
 	
@@ -42,4 +44,7 @@ private:
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 	
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const;
+
+	UFUNCTION()
+	void OnPossessedTankDeath();
 };
